@@ -65,6 +65,15 @@ jobs:
           -e "README*"
           site
 
+      - name: Debug
+        run: ls
+
+      - name: Debug 2
+        run: >
+          grep 
+          "https://risorse.students.cs.unibo.it/${{ github.event.repository.name}}/${{ inputs.path_pages }}" 
+          -rl ./site
+
       - name: Substitute URL in order to remain on pages
         run: >
           grep 
