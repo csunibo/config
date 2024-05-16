@@ -80,7 +80,7 @@ jobs:
           "https://risorse.students.cs.unibo.it/${{ github.event.repository.name}}/${{ inputs.path_pages }}" 
           -rl ./site | xargs 
           sed
-          "s/https:\/\/risorse.students.cs.unibo.it\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\//https:\/\/csunibo.github.io\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\//g"
+          "s/https:\/\/risorse.students.cs.unibo.it\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}/https:\/\/csunibo.github.io\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\//g"
 
 
       - name: Substitute URL in order to remain on pages
