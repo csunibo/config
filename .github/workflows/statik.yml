@@ -6,6 +6,13 @@ on:
         required: true
         type: string
 
+    # Used to specify which path of the statik generation should remain on 
+    # github pages. This is used to avoid hosting books on the main website 
+    # hosted under unibo.it
+      path_pages:
+        required: false
+        type: string
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -57,6 +64,14 @@ jobs:
           -i "${{inputs.regex_include}}"
           -e "README*"
           site
+
+      - name: Substitute URL in order to remain on pages
+        run: >
+          grep 
+          "https://risorse.students.cs.unibo.it/${{ github.event.repository.name}}/${{ inputs.path_pages }}" 
+          -rl ./site | xargs 
+          sed -i 
+          "s/https:\/\/risorse.students.cs.unibo.it\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\/https:\/\/csunibo.github.it\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\/"
 
       - name: Generate site artifact
         if: github.ref == 'refs/heads/main'
