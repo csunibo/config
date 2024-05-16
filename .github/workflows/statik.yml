@@ -74,13 +74,22 @@ jobs:
           "https://risorse.students.cs.unibo.it/${{ github.event.repository.name}}/${{ inputs.path_pages }}" 
           -rl ./site
 
+      - name: Debug 3
+        run: >
+          grep 
+          "https://risorse.students.cs.unibo.it/${{ github.event.repository.name}}/${{ inputs.path_pages }}" 
+          -rl ./site | xargs 
+          sed
+          "s/https:\/\/risorse.students.cs.unibo.it\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\//https:\/\/csunibo.github.io\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\//g"
+
+
       - name: Substitute URL in order to remain on pages
         run: >
           grep 
           "https://risorse.students.cs.unibo.it/${{ github.event.repository.name}}/${{ inputs.path_pages }}" 
           -rl ./site | xargs 
           sed -i 
-          "s/https:\/\/risorse.students.cs.unibo.it\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\//https:\/\/csunibo.github.it\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\//g"
+          "s/https:\/\/risorse.students.cs.unibo.it\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\//https:\/\/csunibo.github.io\/${{ github.event.repository.name}}\/${{ inputs.path_pages }}\//g"
 
       - name: Generate site artifact
         if: github.ref == 'refs/heads/main'
